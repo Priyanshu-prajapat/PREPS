@@ -1,12 +1,12 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-    host: "smtp-relay.brevo.com",
+    host: `${process.env.NODE_MAILER_TRANSPORT_HOST}`,
     port: 587,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-        user: "7721c5002@smtp-brevo.com",
-        pass: "Bk93RagndIfZtH0Q",
+        user: `${process.env.NODE_MAILER_AUTH_TRANSPORT_USER}`,
+        pass: `${process.env.NODE_MAILER_AUTH_TRANSPORT_PASSWORD}`,
     },
 });
 
@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 export function sendMail(to: string, subject: string, template: string) {
     // send mail with defined transport object
     transporter.sendMail({
-        from: 'Priyanshu <prayanshprajapat657@gmail.com>', // sender address
+        from: `${process.env.NODE_MAILER_SENDER}`, // sender address
         to, // list of receivers
         subject, // Subject line
         html: template, // html body
